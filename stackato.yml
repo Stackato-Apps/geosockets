@@ -6,7 +6,7 @@ framework:
 services:
   "user-store": redis
 
-mem: 256
+mem: 128
 
 processes:
   web: coffee index.coffee
