@@ -1,14 +1,10 @@
 name: geosockets
 
-framework:
-  type: node
+command: coffee index.coffee
 
 services:
   "user-store": redis
 
 mem: 128
-
-processes:
-  web: coffee index.coffee
 
 ignores: ["node_modules"]

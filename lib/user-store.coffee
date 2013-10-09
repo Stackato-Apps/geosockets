@@ -1,3 +1,4 @@
+Url = require 'url'
 http = require 'http'
 redis = require 'redis'
 
@@ -5,7 +6,16 @@ module.exports = class UserStore
 
   constructor: (cb) ->
     @ttl = 60*15
-    @url = require("url").parse(process.env.REDIS_URL or 'redis://localhost:6379')
+    @url = Url.parse('redis://localhost:6379')
+    if process.env.REDIS_URL
+      @url = Url.parse(process.env.REDIS_URL)
+    else if process.env.STACKATO_SERVICES
+      service = JSON.parse(process.env.STACKATO_SERVICES)['user-store'].credentials
+      @url = {}
+      @url.port = service.port
+      @url.hostname = service.hostname
+      @url.auth = "#{service.name}:#{service.password}"
+
     @redis = redis.createClient(@url.port, @url.hostname)
     @redis.auth(@url.auth.split(":")[1]) if @url.auth
 
