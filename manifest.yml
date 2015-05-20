@@ -1,5 +1,6 @@
 applications:
 - name: geosockets
+  docker_image: stackatoapps/geosockets:latest
   mem: 256
   services:
     user-store:
