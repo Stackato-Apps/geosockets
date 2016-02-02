@@ -1,9 +1,11 @@
 applications:
 - name: geosockets
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack#v1.5.5
   memory: 256
   services:
     user-store:
       type: redis
+  stack: cflinuxfs2
   stackato:
     ignores:
     - node_modules
